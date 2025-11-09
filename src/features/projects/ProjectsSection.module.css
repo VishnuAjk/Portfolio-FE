@@ -1,0 +1,61 @@
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project {
+  border: var(--border-soft);
+  border-radius: 20px;
+  padding: 1rem 1.25rem;
+}
+
+.project h3 {
+  margin: 0;
+}
+
+.project p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.stack span {
+  background: var(--bg-muted);
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  margin-right: 0.25rem;
+}
+
+.meta a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.metaActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.editorArea {
+  margin-top: 1.25rem;
+}
+
+.addRow {
+  display: flex;
+  justify-content: flex-end;
+}

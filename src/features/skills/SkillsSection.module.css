@@ -1,0 +1,46 @@
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category {
+  border: var(--border-soft);
+  border-radius: 16px;
+  padding: 0.75rem 1rem;
+}
+
+.categoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryHeader p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.category span {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  background: var(--bg-muted);
+  margin-right: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.editorArea {
+  margin-top: 1rem;
+}
+
+.addRow {
+  display: flex;
+  justify-content: flex-end;
+}

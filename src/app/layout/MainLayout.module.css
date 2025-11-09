@@ -1,0 +1,17 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #e0edff 0%, rgba(224, 237, 255, 0) 55%) var(--bg-muted);
+}
+
+.content {
+  flex: 1;
+  padding: var(--page-padding);
+  max-width: var(--page-max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

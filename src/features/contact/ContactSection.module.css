@@ -1,0 +1,40 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.socialChip {
+  border: var(--border-soft);
+  border-radius: 16px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.socials a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.editorArea {
+  margin-top: 1.25rem;
+}
+
+.addRow {
+  display: flex;
+  justify-content: flex-end;
+}

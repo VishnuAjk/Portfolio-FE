@@ -1,0 +1,47 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.role {
+  padding: 1rem;
+  border-radius: 16px;
+  border: var(--border-soft);
+}
+
+.roleHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.period {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.company {
+  margin: 0;
+  font-weight: 500;
+}
+
+.summary {
+  margin: 0.35rem 0 0;
+  color: var(--text-muted);
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.editorArea {
+  margin-top: 1.25rem;
+}
+
+.addRow {
+  display: flex;
+  justify-content: flex-end;
+}
