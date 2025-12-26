@@ -1,38 +1,111 @@
 .timeline {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  position: relative;
+  padding: 1rem 0;
+  display: grid;
+  gap: 1.5rem;
 }
 
-.timelineHead {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+.verticalLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0), rgba(15, 23, 42, 0.16), rgba(15, 23, 42, 0));
+  transform: translateX(-50%);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
+  margin: 1.25rem 0;
+  position: relative;
+  min-height: 120px;
+}
+
+.entry.left .card {
+  justify-self: end;
+  grid-column: 1 / 2;
+  margin-right: 1.5rem;
+}
+
+.entry.right .card {
+  justify-self: start;
+  grid-column: 2 / 3;
+  margin-left: 1.5rem;
+}
+
+.node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0f172a;
+  box-shadow: 0 0 0 6px rgba(15, 23, 42, 0.08);
+  transform: translate(-50%, -50%);
+}
+
+.card {
+  width: min(95%, 560px);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+  padding: 1.25rem;
+}
+
+.cardHead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: #f8fafc;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .period {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--accent);
+  color: #475569;
 }
 
-.title {
-  margin: 0.25rem 0 0;
-  font-weight: 600;
+.actions {
+  display: flex;
+  gap: 0.35rem;
 }
 
 .detail {
   margin: 0.25rem 0 0;
-  color: var(--text-muted);
+  color: #475569;
 }
 
 .empty {
   margin: 0;
-  color: var(--text-muted);
+  color: #475569;
 }
 
 .editorArea {
@@ -42,4 +115,45 @@
 .addRow {
   display: flex;
   justify-content: flex-end;
+}
+
+.adminList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.adminEntry {
+  display: block;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .entry {
+    grid-template-columns: 1fr;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-height: auto;
+  }
+
+  .entry.left .card,
+  .entry.right .card {
+    justify-self: center;
+    margin: 0;
+    grid-column: 1 / -1;
+  }
+
+  .verticalLine {
+    left: 24px;
+    transform: none;
+  }
+
+  .node {
+    left: 24px;
+    transform: translateY(-50%);
+  }
+
+  .card {
+    width: 100%;
+  }
 }

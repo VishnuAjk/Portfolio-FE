@@ -1,5 +1,28 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-items: start;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0) scale(0.98);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+  transition-delay: calc(var(--reveal-index, 0) * 90ms);
+}
+
+.revealVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

@@ -5,6 +5,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './PersonalJourneySection.module.css';
 
 const emptyMilestone = {
@@ -13,7 +14,7 @@ const emptyMilestone = {
   detail: '',
 };
 
-const PersonalJourneySection = ({ meta }) => {
+const PersonalJourneySection = ({ meta, adminView = false }) => {
   const { data, updateSection } = usePortfolioData();
   const { canEdit } = useAuth();
   const { confirm } = useConfirmation();
@@ -74,30 +75,54 @@ const PersonalJourneySection = ({ meta }) => {
 
   return (
     <SectionCard title={meta.title} description={meta.description}>
-      <ol className={styles.timeline}>
-        {timeline.map((item, index) => (
-          <li key={`${item.period}-${item.title}`}>
-            <div className={styles.timelineHead}>
-              <div>
-                <p className={styles.period}>{item.period}</p>
-                <p className={styles.title}>{item.title}</p>
-              </div>
-              {canEdit && (
-                <div className={formStyles.listActions}>
-                  <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                    Edit
-                  </button>
-                  <button type="button" className={formStyles.buttonDanger} onClick={() => handleDelete(index)}>
-                    Delete
-                  </button>
-                </div>
-              )}
+      <div className={adminView ? styles.adminList : styles.timeline}>
+        {!adminView && <div className={styles.verticalLine} aria-hidden="true" />}
+        {timeline.map((item, index) => {
+          const isRight = !adminView && index % 2 !== 0;
+          const initial = item.title?.[0]?.toUpperCase() ?? '•';
+          return (
+            <div
+              key={`${item.period}-${item.title}`}
+              className={`${adminView ? styles.adminEntry : styles.entry} ${isRight ? styles.right : styles.left}`}
+            >
+              {!adminView && <div className={styles.node} aria-hidden="true" />}
+              <article className={styles.card}>
+                <header className={styles.cardHead}>
+                  <div className={styles.icon}>{initial}</div>
+                  <div className={styles.headCopy}>
+                    <p className={styles.title}>{item.title}</p>
+                    <p className={styles.period}>{item.period}</p>
+                  </div>
+                  {canEdit && (
+                    <div className={styles.actions}>
+                      <button
+                        type="button"
+                        className={formStyles.buttonGhost}
+                        onClick={() => startEdit(index)}
+                        aria-label="Edit milestone"
+                        title="Edit milestone"
+                      >
+                        <EditIcon />
+                      </button>
+                      <button
+                        type="button"
+                        className={formStyles.buttonDanger}
+                        onClick={() => handleDelete(index)}
+                        aria-label="Delete milestone"
+                        title="Delete milestone"
+                      >
+                        <TrashIcon />
+                      </button>
+                    </div>
+                  )}
+                </header>
+                <p className={styles.detail}>{item.detail}</p>
+              </article>
             </div>
-            <p className={styles.detail}>{item.detail}</p>
-          </li>
-        ))}
+          );
+        })}
         {!timeline.length && <p className={styles.empty}>Capture key milestones from your journey.</p>}
-      </ol>
+      </div>
       {canEdit && (
         <div className={styles.editorArea}>
           {!formOpen ? (

@@ -22,6 +22,7 @@ Backend should return `{ message }` on auth failures so UI can display it.
 
 ```json
 {
+  "showcase": { "title": "", "subtitle": "", "logoUrl": "", "profileImageUrl": "" },
   "about": { "summary": "", "highlights": [] },
   "skills": { "headline": "", "categories": [{ "title": "", "items": [] }] },
   "work": { "roles": [{ "title": "", "company": "", "period": "", "summary": "" }] },
@@ -34,7 +35,7 @@ Backend should return `{ message }` on auth failures so UI can display it.
 
 ### Section mutations
 Current FE uses bulk updates:
-- `PUT /portfolio/:sectionKey` with a payload shaped exactly like the section (e.g., `skills` payload above). Response should return the updated section object to keep FE state in sync.
+- `PUT /portfolio/:sectionKey` with a payload shaped exactly like the section (e.g., `skills` payload above, or showcase metadata such as `{ title, subtitle, logoUrl, profileImageUrl }`). Response should return the updated section object to keep FE state in sync. The showcase editor calls `PUT /portfolio/showcase`.
 
 Optional helpers already scaffolded client-side if BE prefers item-level CRUD:
 - `POST /portfolio/:sectionKey` expecting `{ ...itemFields }` → returns created item.

@@ -1,19 +1,26 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .hero {
-  background: var(--bg-card);
+  background: var(--surface);
   border-radius: var(--card-radius);
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 5vw, 3rem);
   border: var(--border-soft);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.heroActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .eyebrow {
@@ -33,15 +40,85 @@
   border: none;
   padding: 0.65rem 1.5rem;
   background: var(--accent);
-  color: white;
+  color: #050505;
   cursor: pointer;
+}
+
+.heroActions .primaryDark {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+}
+
+.secondary {
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.primaryDark {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.adminContent {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.adminGrid :global(.card),
+.adminContent > :global(.card) {
+  background: #ffffff;
+  border: 1px solid var(--border-soft-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+}
+
+.adminGrid :global(.grid) {
+  grid-template-columns: 1fr;
+}
+
+.adminGrid :global(.timeline) {
+  padding: 0;
+}
+
+.adminGrid :global(.entry) {
+  grid-template-columns: 1fr;
+  min-height: auto;
+  margin: 0.75rem 0;
+}
+
+.adminGrid :global(.entry .card) {
+  justify-self: stretch;
+  margin: 0;
+  width: 100%;
+}
+
+.adminGrid :global(.entry .node),
+.adminGrid :global(.verticalLine) {
+  display: none;
+}
+
+.adminGrid :global(.header),
+.adminContent > :global(.card) :global(.header) {
+  border-bottom: 1px solid var(--border-soft-color);
 }
 
 .preview {
   margin: 0;
   padding: 1rem;
-  background: var(--bg-muted);
+  background: var(--surface-muted);
   border-radius: 16px;
   overflow-x: auto;
   font-size: 0.85rem;
+  border: var(--border-soft);
 }

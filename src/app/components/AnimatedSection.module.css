@@ -1,0 +1,24 @@
+.section {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(3rem, 8vw, 5rem) var(--page-padding);
+}
+
+.muted {
+  background: var(--bg-muted);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .section {
+    min-height: auto;
+    padding: clamp(2rem, 6vw, 3rem) var(--page-padding);
+  }
+}

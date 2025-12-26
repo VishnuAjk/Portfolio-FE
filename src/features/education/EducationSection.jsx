@@ -5,6 +5,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './EducationSection.module.css';
 
 const emptyMilestone = {
@@ -85,11 +86,23 @@ const EducationSection = ({ meta }) => {
               </div>
               {canEdit && (
                 <div className={formStyles.listActions}>
-                  <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                    Edit
+                  <button
+                    type="button"
+                    className={formStyles.buttonGhost}
+                    onClick={() => startEdit(index)}
+                    aria-label="Edit milestone"
+                    title="Edit milestone"
+                  >
+                    <EditIcon />
                   </button>
-                  <button type="button" className={formStyles.buttonDanger} onClick={() => handleDelete(index)}>
-                    Delete
+                  <button
+                    type="button"
+                    className={formStyles.buttonDanger}
+                    onClick={() => handleDelete(index)}
+                    aria-label="Delete milestone"
+                    title="Delete milestone"
+                  >
+                    <TrashIcon />
                   </button>
                 </div>
               )}
