@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
 import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
+import { uploadService } from '../../services/uploadService.js';
 import styles from './ProjectsSection.module.css';
 
 const emptyProject = {
@@ -13,6 +14,7 @@ const emptyProject = {
   link: '',
   stackInput: '',
   summary: '',
+  image: '',
 };
 
 const ProjectsSection = ({ meta }) => {
@@ -24,6 +26,7 @@ const ProjectsSection = ({ meta }) => {
   const [formState, setFormState] = useState(emptyProject);
   const [editingIndex, setEditingIndex] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const resetForm = () => {
     setFormState(emptyProject);
@@ -44,9 +47,28 @@ const ProjectsSection = ({ meta }) => {
       link: project.link,
       summary: project.summary,
       stackInput: project.stack?.join(', ') ?? '',
+      image: project.image ?? project.imageUrl ?? '',
     });
     setEditingIndex(index);
     setFormOpen(true);
+  };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const { url } = await uploadService.uploadImage(file);
+      if (url) {
+        setFormState((prev) => ({ ...prev, image: url }));
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to upload project image', error);
+    } finally {
+      setUploading(false);
+      event.target.value = '';
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -57,6 +79,8 @@ const ProjectsSection = ({ meta }) => {
       name: formState.name.trim(),
       link: formState.link.trim(),
       summary: formState.summary.trim(),
+      image: formState.image.trim(),
+      imageUrl: formState.image.trim(),
       stack: formState.stackInput
         .split(',')
         .map((token) => token.trim())
@@ -163,6 +187,27 @@ const ProjectsSection = ({ meta }) => {
                     onChange={(event) => setFormState((prev) => ({ ...prev, link: event.target.value }))}
                     placeholder="https://portfolio.dev"
                   />
+                </div>
+              </div>
+              <div className={formStyles.inputGroup}>
+                <label htmlFor="project-image">Image URL</label>
+                <div className={styles.imageControls}>
+                  <input
+                    id="project-image"
+                    value={formState.image}
+                    onChange={(event) => setFormState((prev) => ({ ...prev, image: event.target.value }))}
+                    placeholder="https://images.unsplash.com/..."
+                  />
+                  <label className={`${formStyles.buttonGhost} ${styles.uploadButton}`}>
+                    Upload
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      style={{ display: 'none' }}
+                      disabled={uploading}
+                    />
+                  </label>
                 </div>
               </div>
               <div className={formStyles.inputGroup}>

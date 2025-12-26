@@ -30,8 +30,8 @@ const Projects = ({ items }) => {
               transition={{ ...transition, ...createStagger(index, 0.15) }}
             >
               <div className={styles.imageWrap}>
-                {project.image ? (
-                  <img src={project.image} alt={project.name} loading="lazy" />
+                {project.image || project.imageUrl ? (
+                  <img src={project.image || project.imageUrl} alt={project.name} loading="lazy" />
                 ) : (
                   <div className={styles.imageFallback}>
                     <span>{project.name?.slice(0, 2).toUpperCase()}</span>
@@ -76,6 +76,7 @@ Projects.propTypes = {
       stack: PropTypes.arrayOf(PropTypes.string),
       summary: PropTypes.string,
       image: PropTypes.string,
+      imageUrl: PropTypes.string,
       category: PropTypes.string,
     }),
   ),

@@ -59,3 +59,19 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.imageControls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.imageControls input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.uploadButton {
+  white-space: nowrap;
+}
