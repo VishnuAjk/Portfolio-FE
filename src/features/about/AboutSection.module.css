@@ -1,5 +1,51 @@
 .list {
   margin: 0;
-  padding-left: 1.25rem;
-  color: var(--text-muted);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  color: #1f2937;
+}
+
+.list li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 10px;
+  height: 2px;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.imageRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.imageLabel {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.imageControls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.imageControls input {
+  flex: 1;
+  min-width: 220px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-soft-color);
+  background: #ffffff;
+  color: #0f172a;
 }

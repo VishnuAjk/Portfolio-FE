@@ -1,47 +1,130 @@
-.timeline {
+.list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.adminList {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .role {
-  padding: 1rem;
-  border-radius: 16px;
-  border: var(--border-soft);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
 }
 
-.roleHead {
-  display: flex;
-  justify-content: space-between;
+.roleHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
   gap: 1rem;
 }
 
-.period {
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(14, 165, 233, 0.12));
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f172a;
 }
 
 .company {
   margin: 0;
-  font-weight: 500;
+  color: #475569;
+  font-weight: 600;
 }
 
-.summary {
-  margin: 0.35rem 0 0;
-  color: var(--text-muted);
+.overview {
+  margin: 0;
+  color: #475569;
+}
+
+.periodArea {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #475569;
+}
+
+.period {
+  margin: 0;
+}
+
+.periodIcon {
+  font-size: 1.1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+  color: #0f172a;
+}
+
+.bullets li {
+  line-height: 1.6;
 }
 
 .empty {
   margin: 0;
-  color: var(--text-muted);
+  color: #94a3b8;
 }
 
 .editorArea {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
 }
 
 .addRow {
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .roleHeader {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'avatar meta'
+      'period period'
+      'controls controls';
+    gap: 0.75rem;
+  }
+
+  .periodArea {
+    grid-area: period;
+    justify-content: flex-start;
+  }
+
+  .controls {
+    grid-area: controls;
+  }
 }

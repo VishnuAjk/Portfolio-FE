@@ -1,17 +1,31 @@
 .shell {
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(15, 23, 42, 0.05), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(15, 23, 42, 0.04), transparent 35%),
+    linear-gradient(160deg, rgba(15, 23, 42, 0.025), transparent 55%),
+    var(--surface-muted);
+}
+
+.inner {
+  min-height: inherit;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at top, #e0edff 0%, rgba(224, 237, 255, 0) 55%) var(--bg-muted);
+  position: relative;
+  z-index: 1;
 }
 
 .content {
   flex: 1;
-  padding: var(--page-padding);
-  max-width: var(--page-max-width);
   width: 100%;
+  padding: clamp(1.25rem, 5vw, 2.5rem) var(--page-padding) clamp(2rem, 6vw, 3.5rem);
+  max-width: var(--page-max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  padding-top: 7rem;
 }

@@ -5,6 +5,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './ProjectsSection.module.css';
 
 const emptyProject = {
@@ -107,11 +108,23 @@ const ProjectsSection = ({ meta }) => {
                 )}
                 {canEdit && (
                   <div className={formStyles.listActions}>
-                    <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                      Edit
+                    <button
+                      type="button"
+                      className={formStyles.buttonGhost}
+                      onClick={() => startEdit(index)}
+                      aria-label="Edit project"
+                      title="Edit project"
+                    >
+                      <EditIcon />
                     </button>
-                    <button type="button" className={formStyles.buttonDanger} onClick={() => handleDelete(index)}>
-                      Delete
+                    <button
+                      type="button"
+                      className={formStyles.buttonDanger}
+                      onClick={() => handleDelete(index)}
+                      aria-label="Delete project"
+                      title="Delete project"
+                    >
+                      <TrashIcon />
                     </button>
                   </div>
                 )}

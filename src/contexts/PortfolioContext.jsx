@@ -18,7 +18,13 @@ export const PortfolioProvider = ({ children }) => {
     setError(null);
     try {
       const data = await portfolioService.fetchPortfolio();
-      setPortfolio({ ...getInitialState(), ...data });
+      const base = getInitialState();
+      const merged = Object.keys(base).reduce((acc, key) => {
+        const incoming = data?.[key] ?? {};
+        acc[key] = { ...base[key], ...incoming };
+        return acc;
+      }, {});
+      setPortfolio(merged);
     } catch (err) {
       setError(err);
     } finally {
@@ -44,8 +50,17 @@ export const PortfolioProvider = ({ children }) => {
     }
 
     const nextData = await portfolioService.updateSection(sectionKey, payload);
-    setPortfolio((prev) => ({ ...prev, [sectionKey]: nextData }));
-    return nextData;
+    let mergedResult = null;
+    setPortfolio((prev) => {
+      const current = prev[sectionKey] ?? {};
+      const merged =
+        typeof nextData === 'object' && nextData !== null
+          ? { ...current, ...payload, ...nextData }
+          : { ...current, ...payload };
+      mergedResult = merged;
+      return { ...prev, [sectionKey]: merged };
+    });
+    return mergedResult ?? payload;
   }, []);
 
   const value = useMemo(

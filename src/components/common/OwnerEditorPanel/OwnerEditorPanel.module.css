@@ -1,0 +1,40 @@
+.panel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.subtitle {
+  margin: 0.2rem 0 0;
+  color: #475569;
+}
+
+.toggle {
+  border: none;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.body {
+  margin-top: 1rem;
+}

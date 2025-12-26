@@ -6,6 +6,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './ContactSection.module.css';
 
 const emptySocial = {
@@ -93,11 +94,23 @@ const ContactSection = ({ meta }) => {
             </a>
             {canEdit && (
               <div className={formStyles.listActions}>
-                <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                  Edit
+                <button
+                  type="button"
+                  className={formStyles.buttonGhost}
+                  onClick={() => startEdit(index)}
+                  aria-label="Edit link"
+                  title="Edit link"
+                >
+                  <EditIcon />
                 </button>
-                <button type="button" className={formStyles.buttonDanger} onClick={() => handleDelete(index)}>
-                  Delete
+                <button
+                  type="button"
+                  className={formStyles.buttonDanger}
+                  onClick={() => handleDelete(index)}
+                  aria-label="Delete link"
+                  title="Delete link"
+                >
+                  <TrashIcon />
                 </button>
               </div>
             )}

@@ -1,4 +1,5 @@
 export const SECTION_KEYS = {
+  SHOWCASE: 'showcase',
   ABOUT: 'about',
   SKILLS: 'skills',
   WORK: 'work',
@@ -47,9 +48,16 @@ export const SECTION_META = [
 ];
 
 export const defaultPortfolioShape = {
+  [SECTION_KEYS.SHOWCASE]: {
+    title: '',
+    subtitle: '',
+    logoUrl: '',
+    profileImageUrl: '',
+  },
   [SECTION_KEYS.ABOUT]: {
     summary: '',
     highlights: [],
+    imageUrl: '',
   },
   [SECTION_KEYS.SKILLS]: {
     headline: '',

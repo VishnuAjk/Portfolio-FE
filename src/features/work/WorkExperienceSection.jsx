@@ -5,6 +5,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './WorkExperienceSection.module.css';
 
 const emptyRole = {
@@ -14,7 +15,7 @@ const emptyRole = {
   summary: '',
 };
 
-const WorkExperienceSection = ({ meta }) => {
+const WorkExperienceSection = ({ meta, adminView = false }) => {
   const { data, updateSection } = usePortfolioData();
   const { canEdit } = useAuth();
   const { confirm } = useConfirmation();
@@ -79,29 +80,63 @@ const WorkExperienceSection = ({ meta }) => {
 
   return (
     <SectionCard title={meta.title} description={meta.description}>
-      <div className={styles.timeline}>
-        {roles.map((role, index) => (
-          <article key={`${role.company}-${role.title}-${role.period}`} className={styles.role}>
-            <div className={styles.roleHead}>
-              <div>
-                <p className={styles.period}>{role.period}</p>
-                <h3>{role.title}</h3>
-                <p className={styles.company}>{role.company}</p>
-              </div>
-              {canEdit && (
-                <div className={formStyles.listActions}>
-                  <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                    Edit
-                  </button>
-                  <button type="button" className={formStyles.buttonDanger} onClick={() => handleDelete(index)}>
-                    Delete
-                  </button>
+      <div className={adminView ? styles.adminList : styles.list}>
+        {roles.map((role, index) => {
+          const summaryLines = (role.summary || '')
+            .split('\n')
+            .map((line) => line.trim())
+            .filter(Boolean);
+          const overview = summaryLines[0] ?? '';
+          const bullets = summaryLines.slice(1);
+
+          return (
+            <article key={`${role.company}-${role.title}-${role.period}`} className={styles.role}>
+              <div className={styles.roleHeader}>
+                <div className={styles.avatar} aria-hidden="true">
+                  {role.company?.[0]?.toUpperCase() || '•'}
                 </div>
+                <div className={styles.meta}>
+                  <p className={styles.title}>{role.title}</p>
+                  <p className={styles.company}>{role.company}</p>
+                  {overview && <p className={styles.overview}>{overview}</p>}
+                </div>
+                <div className={styles.periodArea}>
+                  <span className={styles.periodIcon} aria-hidden="true">📅</span>
+                  <p className={styles.period}>{role.period}</p>
+                </div>
+                {canEdit && (
+                  <div className={styles.controls}>
+                    <button
+                      type="button"
+                      className={formStyles.buttonGhost}
+                      onClick={() => startEdit(index)}
+                      aria-label="Edit role"
+                      title="Edit role"
+                    >
+                      <EditIcon />
+                    </button>
+                    <button
+                      type="button"
+                      className={formStyles.buttonDanger}
+                      onClick={() => handleDelete(index)}
+                      aria-label="Delete role"
+                      title="Delete role"
+                    >
+                      <TrashIcon />
+                    </button>
+                  </div>
+                )}
+              </div>
+              {!!bullets.length && (
+                <ul className={styles.bullets}>
+                  {bullets.map((item, bulletIndex) => (
+                    <li key={`${role.title}-bullet-${bulletIndex}`}>{item}</li>
+                  ))}
+                </ul>
               )}
-            </div>
-            <p className={styles.summary}>{role.summary}</p>
-          </article>
-        ))}
+            </article>
+          );
+        })}
         {!roles.length && <p className={styles.empty}>Add your professional experiences to build trust.</p>}
       </div>
       {canEdit && (
@@ -172,6 +207,7 @@ const WorkExperienceSection = ({ meta }) => {
 
 WorkExperienceSection.propTypes = {
   meta: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }).isRequired,
+  adminView: PropTypes.bool,
 };
 
 export default WorkExperienceSection;

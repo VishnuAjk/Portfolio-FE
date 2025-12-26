@@ -9,18 +9,22 @@
   align-items: center;
   justify-content: space-between;
   font-weight: 500;
+  color: #0f172a;
 }
 
 .value {
   margin: 0;
-  color: var(--text-muted);
+  color: #1f2937;
 }
 
 .editButton {
   border: none;
-  background: transparent;
-  color: var(--accent);
+  background: rgba(15, 23, 42, 0.06);
+  color: #0f172a;
   cursor: pointer;
+  border-radius: 999px;
+  padding: 0.15rem 0.85rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
 }
 
 .editor textarea,
@@ -28,9 +32,11 @@
   width: 100%;
   padding: 0.65rem 0.85rem;
   border-radius: 12px;
-  border: var(--border-soft);
+  border: 1px solid var(--border-soft-color);
   font-size: 1rem;
   resize: vertical;
+  background: #ffffff;
+  color: #0f172a;
 }
 
 .actions {
@@ -48,13 +54,14 @@
 .actions button {
   border-radius: 999px;
   padding: 0.35rem 1rem;
-  border: var(--border-soft);
-  background: var(--bg-muted);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(15, 23, 42, 0.04);
   cursor: pointer;
+  color: #0f172a;
 }
 
 .primary {
   background: var(--accent);
-  color: white;
+  color: #f8fafc;
   border: none;
 }

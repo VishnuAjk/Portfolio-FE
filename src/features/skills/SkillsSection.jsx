@@ -6,6 +6,7 @@ import { usePortfolioData } from '../../hooks/usePortfolioData.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useConfirmation } from '../../hooks/useConfirmation.js';
 import formStyles from '../../styles/forms.module.css';
+import { EditIcon, TrashIcon } from '../../components/icons/index.jsx';
 import styles from './SkillsSection.module.css';
 
 const emptyCategory = {
@@ -101,15 +102,23 @@ const SkillsSection = ({ meta }) => {
               <p>{category.title}</p>
               {canEdit && (
                 <div className={formStyles.listActions}>
-                  <button type="button" className={formStyles.buttonGhost} onClick={() => startEdit(index)}>
-                    Edit
+                  <button
+                    type="button"
+                    className={formStyles.buttonGhost}
+                    onClick={() => startEdit(index)}
+                    aria-label="Edit skill group"
+                    title="Edit skill group"
+                  >
+                    <EditIcon />
                   </button>
                   <button
                     type="button"
                     className={formStyles.buttonDanger}
                     onClick={() => handleDelete(index)}
+                    aria-label="Delete skill group"
+                    title="Delete skill group"
                   >
-                    Delete
+                    <TrashIcon />
                   </button>
                 </div>
               )}

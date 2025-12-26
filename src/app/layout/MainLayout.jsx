@@ -1,13 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import SiteHeader from '../../components/navigation/SiteHeader.jsx';
+import Navigation from '../components/Navigation.jsx';
+import VisualEffectsLayer from '../../components/visual/VisualEffectsLayer.jsx';
 import styles from './MainLayout.module.css';
 
 const MainLayout = () => (
   <div className={styles.shell}>
-    <SiteHeader />
-    <main className={styles.content}>
-      <Outlet />
-    </main>
+    <VisualEffectsLayer />
+    <div className={styles.inner}>
+      <Navigation />
+      <main className={styles.content}>
+        <Outlet />
+      </main>
+    </div>
   </div>
 );
 
