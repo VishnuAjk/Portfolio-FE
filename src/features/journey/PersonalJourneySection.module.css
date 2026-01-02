@@ -131,8 +131,8 @@
 @media (max-width: 960px) {
   .entry {
     grid-template-columns: 1fr;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 3rem;
+    padding-right: 0.75rem;
     min-height: auto;
   }
 
