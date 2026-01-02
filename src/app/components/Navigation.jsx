@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Navigation.module.css';
@@ -25,6 +25,13 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
 
+  const scrollToTarget = useCallback((hash) => {
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+  }, [reduceMotion]);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -38,13 +45,20 @@ const Navigation = () => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (location.hash) {
+      scrollToTarget(location.hash);
+    }
+  }, [location.hash, scrollToTarget]);
+
   const handleNavClick = (href) => () => {
     setMenuOpen(false);
     if (href.startsWith('#')) {
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (location.pathname !== '/') {
+        navigate(`/${href}`);
+        return;
       }
+      scrollToTarget(href);
     } else {
       navigate(href);
     }
@@ -58,7 +72,7 @@ const Navigation = () => {
 
   return (
     <MotionHeader
-      className={`${styles.nav} ${scrolled ? styles.navScrolled : ''}`}
+      className={`${styles.nav} ${scrolled ? styles.navScrolled : ''} ${menuOpen ? styles.navInteractive : ''}`}
       initial={reduceMotion ? false : { y: -80, opacity: 0 }}
       animate={reduceMotion ? undefined : { y: 0, opacity: 1 }}
       transition={transition}
@@ -116,8 +130,9 @@ const Navigation = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setMenuOpen(false)}
           >
-            <div className={styles.mobileMenu}>
+            <div className={styles.mobileMenu} onClick={(event) => event.stopPropagation()}>
               {navItems.map((item, index) => (
                 <MotionButton
                   key={item.href}
