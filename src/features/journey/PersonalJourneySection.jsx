@@ -93,25 +93,25 @@ const PersonalJourneySection = ({ meta, adminView = false }) => {
                     <p className={styles.title}>{item.title}</p>
                     <p className={styles.period}>{item.period}</p>
                   </div>
-                  {canEdit && (
-                    <div className={styles.actions}>
+                  {canEdit && adminView && (
+                    <div className={`${styles.actions} ${formStyles.listActions}`}>
                       <button
                         type="button"
-                        className={formStyles.buttonGhost}
+                        className={formStyles.iconButton}
                         onClick={() => startEdit(index)}
                         aria-label="Edit milestone"
-                        title="Edit milestone"
                       >
-                        <EditIcon />
+                        <EditIcon size={16} />
+                        <span className={formStyles.iconButtonLabel}>Edit</span>
                       </button>
                       <button
                         type="button"
-                        className={formStyles.buttonDanger}
+                        className={formStyles.iconButtonDanger}
                         onClick={() => handleDelete(index)}
                         aria-label="Delete milestone"
-                        title="Delete milestone"
                       >
-                        <TrashIcon />
+                        <TrashIcon size={16} />
+                        <span className={formStyles.iconButtonLabel}>Delete</span>
                       </button>
                     </div>
                   )}
@@ -123,7 +123,7 @@ const PersonalJourneySection = ({ meta, adminView = false }) => {
         })}
         {!timeline.length && <p className={styles.empty}>Capture key milestones from your journey.</p>}
       </div>
-      {canEdit && (
+      {canEdit && adminView && (
         <div className={styles.editorArea}>
           {!formOpen ? (
             <div className={styles.addRow}>
@@ -182,6 +182,7 @@ const PersonalJourneySection = ({ meta, adminView = false }) => {
 
 PersonalJourneySection.propTypes = {
   meta: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }).isRequired,
+  adminView: PropTypes.bool,
 };
 
 export default PersonalJourneySection;

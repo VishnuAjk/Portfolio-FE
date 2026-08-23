@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SectionCard from '../../components/common/SectionCard/SectionCard.jsx';
 import { SECTION_META, SECTION_KEYS } from '../../utils/sectionConfig.js';
 import { usePortfolioData } from '../../hooks/usePortfolioData.js';
@@ -13,21 +14,24 @@ import ContactSection from '../../features/contact/ContactSection.jsx';
 import formStyles from '../../styles/forms.module.css';
 import styles from './OwnerWorkspace.module.css';
 
-  const componentMap = {
-    about: AboutSection,
-    skills: SkillsSection,
-    work: WorkExperienceSection,
-    journey: PersonalJourneySection,
-    projects: ProjectsSection,
-    education: EducationSection,
-    contact: ContactSection,
-  };
+const componentMap = {
+  about: AboutSection,
+  skills: SkillsSection,
+  work: WorkExperienceSection,
+  journey: PersonalJourneySection,
+  projects: ProjectsSection,
+  education: EducationSection,
+  contact: ContactSection,
+};
+
+const SHOWCASE_KEY = 'showcase';
 
 const OwnerWorkspace = () => {
   const { data, reload, updateSection } = usePortfolioData();
   const { canEdit } = useAuth();
   const showcase = useMemo(() => data[SECTION_KEYS.SHOWCASE] ?? {}, [data]);
   const [formState, setFormState] = useState(showcase);
+  const [activeKey, setActiveKey] = useState(SHOWCASE_KEY);
 
   useEffect(() => {
     setFormState(showcase);
@@ -63,23 +67,52 @@ const OwnerWorkspace = () => {
     await updateSection(SECTION_KEYS.SHOWCASE, formState);
   };
 
+  const sectionTabs = [
+    { key: SHOWCASE_KEY, title: 'Showcase' },
+    ...SECTION_META.map((section) => ({ key: section.key, title: section.title })),
+  ];
+
+  const activeMeta = SECTION_META.find((item) => item.key === activeKey);
+  const ActiveSection = componentMap[activeKey];
+  const adminProps = activeKey === SECTION_KEYS.WORK || activeKey === SECTION_KEYS.JOURNEY
+    ? { adminView: true }
+    : {};
+
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
         <div>
           <p className={styles.eyebrow}>Owner studio</p>
           <h1>Control panel</h1>
-          <p>Update any section, manage items, and sync instantly with the backend.</p>
+          <p>Update one section at a time. Changes sync with the live site.</p>
         </div>
         <div className={styles.heroActions}>
+          <Link to="/" className={styles.ghostLink}>
+            View site
+          </Link>
           <button type="button" onClick={reload} className={styles.primaryDark}>
             Refresh data
           </button>
         </div>
       </section>
 
+      <div className={styles.tabs} role="tablist" aria-label="Portfolio sections">
+        {sectionTabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            role="tab"
+            aria-selected={activeKey === tab.key}
+            className={`${styles.tab} ${activeKey === tab.key ? styles.tabActive : ''}`}
+            onClick={() => setActiveKey(tab.key)}
+          >
+            {tab.title}
+          </button>
+        ))}
+      </div>
+
       <div className={styles.adminContent}>
-        <div className={styles.stack}>
+        {activeKey === SHOWCASE_KEY ? (
           <SectionCard
             title="Showcase"
             description="Controls the hero headline, subtitle, logo, and portrait."
@@ -145,21 +178,9 @@ const OwnerWorkspace = () => {
               </div>
             </form>
           </SectionCard>
-
-          <div className={styles.adminGrid}>
-            <div className={styles.adminList}>
-              {SECTION_META.map((section) => {
-                const SectionComponent = componentMap[section.key];
-                const adminProps = section.key === SECTION_KEYS.WORK || section.key === SECTION_KEYS.JOURNEY
-                  ? { adminView: true }
-                  : section.key === SECTION_KEYS.EDUCATION
-                    ? { adminView: true }
-                    : {};
-                return <SectionComponent key={section.key} meta={section} {...adminProps} />;
-              })}
-            </div>
-          </div>
-        </div>
+        ) : (
+          ActiveSection && <ActiveSection meta={activeMeta} {...adminProps} />
+        )}
       </div>
     </div>
   );

@@ -22,9 +22,10 @@
 .meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   margin-top: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .stack span {
@@ -69,9 +70,23 @@
 
 .imageControls input {
   flex: 1;
-  min-width: 220px;
+  min-width: 0;
+  width: 100%;
 }
 
 .uploadButton {
   white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .metaActions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 1rem;
 }
 
@@ -17,6 +17,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .socials a {
@@ -37,4 +39,15 @@
 .addRow {
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .socials {
+    flex-direction: column;
+  }
+
+  .socialChip {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

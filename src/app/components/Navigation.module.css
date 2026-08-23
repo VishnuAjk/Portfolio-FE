@@ -20,14 +20,15 @@
 
 .inner {
   width: 100%;
+  min-width: 0;
   max-width: var(--page-max-width);
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 999px;
-  padding: 0.65rem 1rem;
+  padding: 0.55rem 0.75rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
   pointer-events: auto;
 }
@@ -64,6 +65,12 @@
 .logoText {
   font-weight: 700;
   color: #0f172a;
+}
+
+@media (max-width: 420px) {
+  .logoText {
+    display: none;
+  }
 }
 
 .links {
@@ -123,6 +130,10 @@
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
   font-weight: 600;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .menuToggle {
@@ -166,18 +177,21 @@
   backdrop-filter: blur(10px);
   z-index: 40;
   pointer-events: auto;
+  padding-top: env(safe-area-inset-top);
 }
 
 .mobileMenu {
   background: #ffffff;
   border-radius: 24px;
   border: 1px solid rgba(15, 23, 42, 0.06);
-  margin: 1rem;
+  margin: 4.75rem 1rem 1rem;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   box-shadow: 0 30px 80px rgba(15, 23, 42, 0.18);
+  max-height: calc(100dvh - 6rem);
+  overflow: auto;
 }
 
 .mobileMenu button {
@@ -197,9 +211,35 @@
 
 .mobileActions {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  flex-wrap: wrap;
   margin-top: 0.5rem;
+}
+
+.mobileUser {
+  margin: 0;
+  padding: 0.65rem 1rem;
+  color: #475569;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.mobileActions .primary,
+.mobileActions .secondary {
+  width: 100%;
+  min-height: 44px;
+}
+
+@media (max-width: 959px) {
+  .userChip,
+  .actions .primary,
+  .actions .secondary {
+    display: none;
+  }
+
+  .inner {
+    border-radius: 22px;
+  }
 }
 
 @media (min-width: 960px) {

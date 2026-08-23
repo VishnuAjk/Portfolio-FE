@@ -24,6 +24,10 @@ const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
+  const isOwnerStudio = location.pathname.startsWith('/admin');
+  const visibleNavItems = isOwnerStudio
+    ? [{ label: 'View site', href: '/' }]
+    : navItems;
 
   const scrollToTarget = useCallback((hash) => {
     const target = document.querySelector(hash);
@@ -59,9 +63,18 @@ const Navigation = () => {
         return;
       }
       scrollToTarget(href);
-    } else {
-      navigate(href);
+      return;
     }
+    navigate(href);
+  };
+
+  const handleLogoClick = () => {
+    setMenuOpen(false);
+    if (isOwnerStudio || location.pathname !== '/') {
+      navigate('/');
+      return;
+    }
+    scrollToTarget('#home');
   };
 
   const handleLogout = () => {
@@ -78,18 +91,18 @@ const Navigation = () => {
       transition={transition}
     >
       <div className={styles.inner}>
-        <button type="button" className={styles.logo} onClick={handleNavClick('#home')}>
+        <button type="button" className={styles.logo} onClick={handleLogoClick}>
           <span className={styles.logoMark}>V</span>
           <span className={styles.logoText}>Vishnu</span>
         </button>
 
         <nav className={styles.links}>
-          {navItems.map((item) => (
+          {visibleNavItems.map((item) => (
             <button key={item.href} type="button" onClick={handleNavClick(item.href)}>
               {item.label}
             </button>
           ))}
-          {canEdit && (
+          {canEdit && !isOwnerStudio && (
             <button type="button" onClick={() => navigate('/admin')}>
               Owner Studio
             </button>
@@ -133,7 +146,7 @@ const Navigation = () => {
             onClick={() => setMenuOpen(false)}
           >
             <div className={styles.mobileMenu} onClick={(event) => event.stopPropagation()}>
-              {navItems.map((item, index) => (
+              {visibleNavItems.map((item, index) => (
                 <MotionButton
                   key={item.href}
                   type="button"
@@ -146,23 +159,26 @@ const Navigation = () => {
                   {item.label}
                 </MotionButton>
               ))}
-              {canEdit && (
+              {canEdit && !isOwnerStudio && (
                 <MotionButton
                   type="button"
                   onClick={() => handleNavClick('/admin')()}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  transition={{ ...transition, ...createStagger(navItems.length, 0.1) }}
+                  transition={{ ...transition, ...createStagger(visibleNavItems.length, 0.1) }}
                 >
                   Owner Studio
                 </MotionButton>
               )}
               <div className={styles.mobileActions}>
                 {isAuthenticated ? (
-                  <button type="button" className={styles.secondary} onClick={handleLogout}>
-                    Logout
-                  </button>
+                  <>
+                    {user?.email && <p className={styles.mobileUser}>{user.email}</p>}
+                    <button type="button" className={styles.secondary} onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <button type="button" className={styles.primary} onClick={() => handleNavClick('/login')()}>
                     Owner Login
