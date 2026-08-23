@@ -42,6 +42,7 @@
   min-height: 100vh;
   background: #f8fafc;
   color: var(--text-default);
+  overflow-x: clip;
 }
 
 :global(html) {

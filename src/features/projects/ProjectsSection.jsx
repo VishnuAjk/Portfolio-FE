@@ -134,21 +134,21 @@ const ProjectsSection = ({ meta }) => {
                   <div className={formStyles.listActions}>
                     <button
                       type="button"
-                      className={formStyles.buttonGhost}
+                      className={formStyles.iconButton}
                       onClick={() => startEdit(index)}
                       aria-label="Edit project"
-                      title="Edit project"
                     >
-                      <EditIcon />
+                      <EditIcon size={16} />
+                      <span className={formStyles.iconButtonLabel}>Edit</span>
                     </button>
                     <button
                       type="button"
-                      className={formStyles.buttonDanger}
+                      className={formStyles.iconButtonDanger}
                       onClick={() => handleDelete(index)}
                       aria-label="Delete project"
-                      title="Delete project"
                     >
-                      <TrashIcon />
+                      <TrashIcon size={16} />
+                      <span className={formStyles.iconButtonLabel}>Delete</span>
                     </button>
                   </div>
                 )}

@@ -104,25 +104,25 @@ const WorkExperienceSection = ({ meta, adminView = false }) => {
                   <span className={styles.periodIcon} aria-hidden="true">📅</span>
                   <p className={styles.period}>{role.period}</p>
                 </div>
-                {canEdit && (
-                  <div className={styles.controls}>
+                {canEdit && adminView && (
+                  <div className={`${styles.controls} ${formStyles.listActions}`}>
                     <button
                       type="button"
-                      className={formStyles.buttonGhost}
+                      className={formStyles.iconButton}
                       onClick={() => startEdit(index)}
                       aria-label="Edit role"
-                      title="Edit role"
                     >
-                      <EditIcon />
+                      <EditIcon size={16} />
+                      <span className={formStyles.iconButtonLabel}>Edit</span>
                     </button>
                     <button
                       type="button"
-                      className={formStyles.buttonDanger}
+                      className={formStyles.iconButtonDanger}
                       onClick={() => handleDelete(index)}
                       aria-label="Delete role"
-                      title="Delete role"
                     >
-                      <TrashIcon />
+                      <TrashIcon size={16} />
+                      <span className={formStyles.iconButtonLabel}>Delete</span>
                     </button>
                   </div>
                 )}
@@ -139,7 +139,7 @@ const WorkExperienceSection = ({ meta, adminView = false }) => {
         })}
         {!roles.length && <p className={styles.empty}>Add your professional experiences to build trust.</p>}
       </div>
-      {canEdit && (
+      {canEdit && adminView && (
         <div className={styles.editorArea}>
           {!formOpen ? (
             <div className={styles.addRow}>

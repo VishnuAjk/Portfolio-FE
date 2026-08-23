@@ -94,3 +94,14 @@
     transform: perspective(900px) rotateX(45deg) translate3d(-5%, 0, 0);
   }
 }
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .orb,
+  .gridSheen {
+    animation: none;
+  }
+
+  .cursorGlow {
+    display: none;
+  }
+}

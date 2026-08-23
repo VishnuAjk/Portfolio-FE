@@ -88,21 +88,21 @@ const EducationSection = ({ meta }) => {
                 <div className={formStyles.listActions}>
                   <button
                     type="button"
-                    className={formStyles.buttonGhost}
+                    className={formStyles.iconButton}
                     onClick={() => startEdit(index)}
                     aria-label="Edit milestone"
-                    title="Edit milestone"
                   >
-                    <EditIcon />
+                    <EditIcon size={16} />
+                    <span className={formStyles.iconButtonLabel}>Edit</span>
                   </button>
                   <button
                     type="button"
-                    className={formStyles.buttonDanger}
+                    className={formStyles.iconButtonDanger}
                     onClick={() => handleDelete(index)}
                     aria-label="Delete milestone"
-                    title="Delete milestone"
                   >
-                    <TrashIcon />
+                    <TrashIcon size={16} />
+                    <span className={formStyles.iconButtonLabel}>Delete</span>
                   </button>
                 </div>
               )}

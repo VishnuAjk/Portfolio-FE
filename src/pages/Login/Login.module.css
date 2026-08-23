@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(2rem, 10vw, 4rem) var(--page-padding);
+  min-height: 100dvh;
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+  background: #f8fafc;
 }
 
 .card {
@@ -17,8 +19,21 @@
   box-shadow: var(--shadow-card);
 }
 
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
 .card h1 {
-  margin-bottom: 0;
+  margin: 0;
+}
+
+.card p {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 .card label {
@@ -26,9 +41,12 @@
   flex-direction: column;
   gap: 0.35rem;
   font-weight: 500;
+  color: var(--text-default);
 }
 
 .card input {
+  width: 100%;
+  min-height: 48px;
   padding: 0.75rem 1rem;
   border-radius: 12px;
   border: var(--border-soft);
@@ -38,19 +56,20 @@
 .card button {
   border: none;
   border-radius: 999px;
+  min-height: 48px;
   padding: 0.65rem 1.5rem;
-  background: #ffffff;
-  color: #050505;
+  background: #0f172a;
+  color: #f8fafc;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
   transition: transform 180ms ease, box-shadow 180ms ease;
-  box-shadow: 0 12px 25px rgba(2, 2, 2, 0.25);
+  box-shadow: 0 12px 25px rgba(2, 2, 2, 0.18);
 }
 
 .card button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 16px 32px rgba(2, 2, 2, 0.35);
+  box-shadow: 0 16px 32px rgba(2, 2, 2, 0.28);
 }
 
 .card button:disabled {
@@ -58,7 +77,23 @@
   cursor: progress;
 }
 
+.backLink {
+  text-align: center;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .error {
   color: var(--danger);
   margin: 0;
+}
+
+.status {
+  margin: 0;
+  color: var(--text-muted);
 }

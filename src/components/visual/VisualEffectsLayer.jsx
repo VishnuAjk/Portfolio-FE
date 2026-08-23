@@ -10,6 +10,16 @@ const VisualEffectsLayer = () => {
   const boundsRef = useRef({ left: 0, top: 0, width: 0, height: 0 });
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (prefersReducedMotion || coarsePointer) {
+      if (cursorRef.current) {
+        cursorRef.current.style.display = 'none';
+      }
+      return undefined;
+    }
+
     const updateBounds = () => {
       if (!layerRef.current) return;
       const bounds = layerRef.current.getBoundingClientRect();

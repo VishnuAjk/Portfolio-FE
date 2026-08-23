@@ -1,7 +1,7 @@
 .shell {
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
   isolation: isolate;
   background:
     radial-gradient(circle at 20% 20%, rgba(15, 23, 42, 0.05), transparent 45%),
@@ -21,6 +21,7 @@
 .content {
   flex: 1;
   width: 100%;
+  min-width: 0;
   padding: clamp(1.25rem, 5vw, 2.5rem) var(--page-padding) clamp(2rem, 6vw, 3.5rem);
   max-width: var(--page-max-width);
   margin: 0 auto;
@@ -28,4 +29,23 @@
   flex-direction: column;
   gap: clamp(1.25rem, 3vw, 2rem);
   padding-top: 7rem;
+}
+
+.ownerShell {
+  background: #f8fafc;
+}
+
+.ownerContent {
+  padding-top: 6.25rem;
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding-top: 5.75rem;
+  }
+
+  .ownerContent {
+    padding-top: 5.5rem;
+  }
 }

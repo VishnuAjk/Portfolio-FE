@@ -15,6 +15,7 @@
 .value {
   margin: 0;
   color: #1f2937;
+  overflow-wrap: anywhere;
 }
 
 .editButton {
